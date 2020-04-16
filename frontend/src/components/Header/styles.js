@@ -7,7 +7,6 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   height: 64px;
-  /* max-width: 900px; */
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -18,10 +17,33 @@ export const Content = styled.div`
     align-items: center;
 
     img {
-      /* background-color: #7159c1; */
       margin-right: 20px;
       padding-right: 20px;
-      border-right: 1px solid #eee;
+      border-right: 1px solid #ddd;
+    }
+
+    a {
+      color: #999;
+      font-weight: bold;
+      margin-right: 21px;
+    }
+  }
+
+  aside {
+    div {
+      text-align: center;
+      margin-top: 2px;
+
+      strong {
+        display: block;
+        color: #666;
+      }
+
+      a {
+        display: block;
+        margin-top: 5px;
+        color: #de3b3b;
+      }
     }
   }
 `;
