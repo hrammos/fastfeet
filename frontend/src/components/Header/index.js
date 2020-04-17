@@ -1,25 +1,35 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import logo from '~/assets/fastfeet-logo-header.svg';
 
-import { Container, Content } from './styles';
+import { Container, Content, Nav } from './styles';
+
+import { signOut } from '~/store/modules/auth/actions';
 
 export default function Header() {
+  const dispatch = useDispatch();
+
+  function handleSignOut() {
+    dispatch(signOut());
+  }
+
   return (
     <Container>
       <Content>
         <nav>
           <img src={logo} alt="Fastfeet" />
-          <Link to="/orders">ENCOMENDAS</Link>
-          <Link to="/deliverymans">ENTREGADORES</Link>
-          <Link to="/recipients">DESTINATÁRIOS</Link>
-          <Link to="/problems">PROBLEMAS</Link>
+          <Nav to="/orders">ENCOMENDAS</Nav>
+          <Nav to="/deliverymans">ENTREGADORES</Nav>
+          <Nav to="/recipients">DESTINATÁRIOS</Nav>
+          <Nav to="/problems">PROBLEMAS</Nav>
         </nav>
         <aside>
           <div>
             <strong>Admin Fastfeet</strong>
-            <Link to="/">sair do sistema</Link>
+            <button type="button" onClick={handleSignOut}>
+              sair do sistema
+            </button>
           </div>
         </aside>
       </Content>
