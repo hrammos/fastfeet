@@ -5,13 +5,22 @@ import Order from '../models/Order';
 class DeliveryController {
   async show(request, response) {
     const { id: deliveryman_id } = request.params;
+    const { page = 1 } = request.query;
+
+    const count = await Order.count();
+
     const orders = await Order.findAll({
       where: {
         deliveryman_id,
         canceled_at: null,
         end_date: null,
       },
+      order: [['created_at', 'ASC']],
+      limit: 5,
+      offset: (page - 1) * 5,
     });
+
+    response.header('X-Total-Count', count);
 
     return response.json(orders);
   }

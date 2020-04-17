@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import logo from '~/assets/fastfeet-logo-header.svg';
 
-import { Container, Content, Nav } from './styles';
+import { Container, Content, NavItem } from './styles';
 
 import { signOut } from '~/store/modules/auth/actions';
 
@@ -19,10 +19,10 @@ export default function Header() {
       <Content>
         <nav>
           <img src={logo} alt="Fastfeet" />
-          <Nav to="/orders">ENCOMENDAS</Nav>
-          <Nav to="/deliverymans">ENTREGADORES</Nav>
-          <Nav to="/recipients">DESTINATÁRIOS</Nav>
-          <Nav to="/problems">PROBLEMAS</Nav>
+          <NavItem to="/orders">ENCOMENDAS</NavItem>
+          <NavItem to="/deliverymans">ENTREGADORES</NavItem>
+          <NavItem to="/recipients">DESTINATÁRIOS</NavItem>
+          <NavItem to="/problems">PROBLEMAS</NavItem>
         </nav>
         <aside>
           <div>

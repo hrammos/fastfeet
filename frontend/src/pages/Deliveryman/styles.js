@@ -38,6 +38,8 @@ export const RecordTable = styled.table`
   border-spacing: 0 18px;
   border-radius: 4px;
 
+  /* border: 1px solid gray; */
+
   thead th {
     color: #444;
     text-align: left;

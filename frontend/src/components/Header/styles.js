@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
   background: #fff;
@@ -21,12 +22,6 @@ export const Content = styled.div`
       padding-right: 20px;
       border-right: 1px solid #ddd;
     }
-
-    a {
-      color: #999;
-      font-weight: bold;
-      margin-right: 21px;
-    }
   }
 
   aside {
@@ -39,11 +34,28 @@ export const Content = styled.div`
         color: #666;
       }
 
-      a {
-        display: block;
+      button {
+        border: 0;
+        background: none;
         margin-top: 5px;
         color: #de3b3b;
       }
     }
+  }
+`;
+
+export const NavItem = styled(NavLink).attrs({
+  activeStyle: {
+    color: '#444',
+  },
+})`
+  font-size: 15px;
+  font-weight: bold;
+  color: #999;
+  margin-right: 21px;
+  transition: color 0.4s;
+
+  &:hover {
+    color: #444;
   }
 `;

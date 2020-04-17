@@ -1,13 +1,24 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import Order from '../models/Order';
 import Recipient from '../models/Recipient';
+import File from '../models/File';
 import Deliveryman from '../models/Deliveryman';
 import Queue from '../../lib/Queue';
 import NewOrderMail from '../jobs/NewOrderMail';
 
 class OrderController {
   async index(request, response) {
+    const { product, page = 1 } = request.query;
+
+    const count = await Order.count();
+
     const orders = await Order.findAll({
+      where: {
+        product: {
+          [Op.iLike]: `%${product}%`,
+        },
+      },
       attributes: [
         'id',
         'recipient_id',
@@ -26,10 +37,22 @@ class OrderController {
         {
           model: Deliveryman,
           as: 'deliveryman',
-          attributes: ['name', 'email'],
+          attributes: ['name', 'email', 'avatar_id'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['name', 'path', 'url'],
+            },
+          ],
         },
       ],
+      order: [['created_at', 'ASC']],
+      limit: 5,
+      offset: (page - 1) * 5,
     });
+
+    response.header('X-Total-Count', count);
 
     return response.json(orders);
   }

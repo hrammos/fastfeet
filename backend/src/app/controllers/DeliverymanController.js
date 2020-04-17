@@ -1,10 +1,20 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import Deliveryman from '../models/Deliveryman';
 import File from '../models/File';
 
 class DeliverymanController {
   async index(request, response) {
+    const { name, page = 1 } = request.query;
+
+    const count = await Deliveryman.count();
+
     const deliverymans = await Deliveryman.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${name}%`,
+        },
+      },
       attributes: ['id', 'name', 'email', 'avatar_id'],
       include: [
         {
@@ -13,7 +23,12 @@ class DeliverymanController {
           attributes: ['name', 'path', 'url'],
         },
       ],
+      order: [['created_at', 'ASC']],
+      limit: 5,
+      offset: (page - 1) * 5,
     });
+
+    response.header('X-Total-Count', count);
 
     return response.json(deliverymans);
   }
