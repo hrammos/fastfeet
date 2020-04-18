@@ -9,10 +9,6 @@ export const Container = styled.div`
   opacity: 1;
   text-align: center;
   padding: 60px 0px;
-  /*
-  img {
-    margin-top: 60px;
-  } */
 
   form {
     display: flex;
@@ -35,7 +31,6 @@ export const Container = styled.div`
       height: 45px;
       padding: 0 15px;
       letter-spacing: 0px;
-
       margin: 0 0 15px;
 
       &::placeholder {

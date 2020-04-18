@@ -38,8 +38,6 @@ export const RecordTable = styled.table`
   border-spacing: 0 18px;
   border-radius: 4px;
 
-  /* border: 1px solid gray; */
-
   thead th {
     color: #444;
     text-align: left;
@@ -47,9 +45,11 @@ export const RecordTable = styled.table`
     font-size: 16px;
     font-weight: bold;
   }
+
   tbody {
     background: #fff;
   }
+
   tbody tr {
     height: 57px;
     border-radius: 50px;
@@ -61,40 +61,4 @@ export const RecordTable = styled.table`
     border: none;
     padding: 12px;
   }
-
-  /* img {
-    height: 100px;
-  }
-
-  strong {
-    color: #333;
-    display: block;
-  }
-
-  span {
-    display: block;
-    margin-top: 5px;
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  div {
-    display: flex;
-    align-items: center;
-
-    input {
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      color: #666;
-      padding: 6px;
-      width: 50px;
-    }
-  }
-
-  button {
-    background: none;
-    border: 0;
-    padding: 6px;
-  }
-  */
 `;
