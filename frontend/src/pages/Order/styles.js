@@ -51,7 +51,6 @@ export const Search = styled.div`
 `;
 
 export const RecordTable = styled.table`
-  /* border: 1px solid red; */
   width: 100%;
   border-spacing: 0 18px;
   border-radius: 4px;

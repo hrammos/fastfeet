@@ -106,7 +106,6 @@ export default function FormOrder({ isUpdate }) {
           <SelectContainer>
             <div>
               <label forName="recipient_id">Destinatário</label>
-              {/* <br /> */}
               <Input
                 id="recipient_id"
                 name="recipient_id"
@@ -117,7 +116,6 @@ export default function FormOrder({ isUpdate }) {
 
             <div>
               <label htmlFor="deliveryman_id">Entregador</label>
-              {/* <br /> */}
               <Input
                 id="deliveryman_id"
                 name="deliveryman_id"

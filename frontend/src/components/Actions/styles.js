@@ -74,10 +74,22 @@ export const ActionsList = styled.aside`
 `;
 
 export const ActionButton = styled.div`
-  button {
-    margin-top: 0;
+  display: flex;
+  flex-direction: column;
 
-    border: 1px solid red;
-    width: 150px;
+  button {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    background: #fff;
+    border: 0;
+    height: 25px;
+    width: 100px;
+
+    & + button {
+      margin-top: 5px;
+      padding-top: 5px;
+      border-top: 1px solid #ddd;
+    }
   }
 `;

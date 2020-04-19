@@ -1,7 +1,15 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-restricted-globals */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { MdAdd, MdSearch } from 'react-icons/md';
+import {
+  MdAdd,
+  MdSearch,
+  MdEdit,
+  MdDeleteForever,
+  MdRemoveRedEye,
+} from 'react-icons/md';
 
 import Actions from '~/components/Actions';
 // import Pagination from '~/components/Pagination';
@@ -12,13 +20,25 @@ import history from '~/services/history';
 import { Container, Search, RecordTable } from './styles';
 
 export default function Order() {
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPage] = useState(0);
+  // const [page, setPage] = useState(1);
+  // const [totalPages, setTotalPage] = useState(0);
   const [orders, setOrders] = useState([]);
   const [product, setProduct] = useState('');
 
-  function goToEdition(id) {
+  function handleNavigateToEdition(id) {
     history.push({ pathname: `/orders/edit/${id}`, state: { id } });
+  }
+
+  async function handleDelete(id) {
+    const checkConfirm = confirm(
+      'Deseja excluir permanentemente esta encomenda? '
+    );
+
+    if (checkConfirm) {
+      await api.delete(`orders/${id}`);
+
+      setOrders(orders.filter((order) => order.id !== id));
+    }
   }
 
   useEffect(() => {
@@ -29,18 +49,18 @@ export default function Order() {
         ...order,
       }));
 
-      const pageLimit = Math.ceil(response.headers['x-total-count'] / 5);
+      // const pageLimit = Math.ceil(response.headers['x-total-count'] / 5);
 
-      setTotalPage(pageLimit);
+      // setTotalPage(pageLimit);
       setOrders(data);
     }
 
     loadOrders();
   }, [product]);
 
-  function paginate(_, newPage) {
-    setPage(newPage);
-  }
+  // function paginate(_, newPage) {
+  //   setPage(newPage);
+  // }
 
   return (
     <Container>
@@ -85,16 +105,22 @@ export default function Order() {
               <td>{order.recipient.state}</td>
               <td>PENDENTE</td>
               <td>
-                <button type="button" onClick={() => goToEdition(order.id)}>
-                  editar
-                </button>
-                <button type="button">visualizar</button>
-                <button type="button">excluir</button>
                 <Actions>
-                  {/* <ActionButton>
-
-                  </ActionButton> */}
-                  <button type="button">editar</button>
+                  <button type="button">
+                    <MdRemoveRedEye size={14} color="#8E5BE8" />
+                    Visualizar
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleNavigateToEdition(order.id)}
+                  >
+                    <MdEdit size={14} color="#4D85EE" />
+                    Editar
+                  </button>
+                  <button type="button" onClick={() => handleDelete(order.id)}>
+                    <MdDeleteForever size={14} color="#DE3B3B" />
+                    Deletar
+                  </button>
                 </Actions>
               </td>
             </tr>

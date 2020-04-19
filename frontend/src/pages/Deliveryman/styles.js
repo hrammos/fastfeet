@@ -2,25 +2,22 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   max-width: 1200px;
-  margin: 28px auto;
+  height: 100%;
+  margin: 0px auto;
+
+  h1 {
+    margin-top: 28px;
+  }
 
   div {
-    margin-top: 34px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    input {
-      width: 237px;
+    a {
+      margin-top: 34px;
       height: 36px;
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-
-    button {
-      height: 36px;
-      padding: 0 20px;
+      padding: 0 18px;
       background-color: #7d40e7;
       border: 0;
       border-radius: 4px;
@@ -30,6 +27,26 @@ export const Container = styled.div`
       display: flex;
       align-items: center;
     }
+  }
+`;
+
+export const Search = styled.div`
+  margin-top: 34px;
+  position: relative;
+  top: 0;
+
+  input {
+    width: 237px;
+    height: 36px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding-left: 40px;
+  }
+
+  svg {
+    position: absolute;
+    left: 12px;
   }
 `;
 
@@ -60,5 +77,11 @@ export const RecordTable = styled.table`
   tbody td {
     border: none;
     padding: 12px;
+
+    img {
+      height: 35px;
+      width: 35px;
+      border-radius: 50%;
+    }
   }
 `;

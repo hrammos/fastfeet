@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
-import { MdMoreHoriz, MdDeleteForever, MdEdit } from 'react-icons/md';
+import PropTypes from 'prop-types';
+import { MdMoreHoriz } from 'react-icons/md';
 
 import { Container, Badge, ActionsList, ActionButton } from './styles';
 
-export default function Actions() {
+export default function Actions({ children }) {
   const [visible, setVisible] = useState(false);
 
   function handleToggle() {
@@ -18,19 +18,13 @@ export default function Actions() {
       </Badge>
 
       <ActionsList visible={visible}>
-        <ActionButton>
-          <button type="button">
-            <MdEdit />
-            Editar
-          </button>
-        </ActionButton>
-        <ActionButton>
-          <button type="button">
-            <MdDeleteForever />
-            Excluir
-          </button>
-        </ActionButton>
+        <ActionButton>{children}</ActionButton>
       </ActionsList>
     </Container>
   );
 }
+
+Actions.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array])
+    .isRequired,
+};

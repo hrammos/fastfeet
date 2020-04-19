@@ -12,11 +12,32 @@ export const Container = styled.div`
     }
 
     img {
-      height: 120px;
-      width: 120px;
+      height: 150px;
+      width: 150px;
       border-radius: 50%;
-      border: 3px solid rgba(255, 255, 255, 0.3);
+      border: 1px dashed #ddd;
       background: #eee;
+    }
+
+    div {
+      height: 150px;
+      width: 150px;
+      border-radius: 50%;
+      border: 1px dashed #ddd;
+      background: #fff;
+      padding: 40px 20px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      img {
+        width: 40px;
+        height: 40px;
+      }
+
+      p {
+        color: #ddd;
+      }
     }
 
     input {

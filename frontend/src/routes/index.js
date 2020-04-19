@@ -7,6 +7,8 @@ import SignIn from '../pages/SignIn';
 import Order from '../pages/Order';
 import FormOrder from '../pages/Order/FormOrder';
 import Deliveryman from '../pages/Deliveryman';
+import FormDeliveryman from '../pages/Deliveryman/FormDeliveryman';
+
 import Recipient from '../pages/Recipient';
 import Problem from '../pages/Problem';
 
@@ -24,7 +26,20 @@ export default function Routes() {
         isUpdate
       />
 
-      <Route path="/deliverymans" component={Deliveryman} isPrivate />
+      <Route path="/deliverymans" exact component={Deliveryman} isPrivate />
+      <Route
+        path="/deliverymans/new"
+        exact
+        component={FormDeliveryman}
+        isPrivate
+      />
+      <Route
+        path="/deliverymans/edit/:id"
+        exact
+        component={FormDeliveryman}
+        isPrivate
+        isUpdate
+      />
       <Route path="/recipients" component={Recipient} isPrivate />
       <Route path="/problems" component={Problem} isPrivate />
     </Switch>

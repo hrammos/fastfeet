@@ -1,5 +1,6 @@
-import React from 'react';
-import { useField, useState, useRef, useEffect } from '@rocketseat/unform';
+import React, { useState, useEffect, useRef } from 'react';
+import { useField } from '@rocketseat/unform';
+import { MdPhotoSizeSelectActual } from 'react-icons/md';
 
 import api from '~/services/api';
 
@@ -7,7 +8,6 @@ import { Container } from './styles';
 
 export default function AvatarInput() {
   const { defaultValue, registerField } = useField('avatar');
-
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
 
@@ -39,12 +39,14 @@ export default function AvatarInput() {
   return (
     <Container>
       <label htmlFor="avatar">
-        <img
-          src={
-            preview || 'https://api.adorable.io/avatars/285/abott@adorable.png'
-          }
-          alt="Avatar"
-        />
+        {preview ? (
+          <img src={preview} alt="Avatar" />
+        ) : (
+          <div>
+            <MdPhotoSizeSelectActual size={40} color="#ddd" />
+            <p>Adicionar foto</p>
+          </div>
+        )}
 
         <input
           type="file"
