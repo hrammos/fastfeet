@@ -11,6 +11,7 @@ import CancellationMail from '../jobs/CancellationMail';
 
 class DeliveryProblemController {
   async index(request, response) {
+    const { page = 1 } = request.query;
     const deliveries = await Problem.findAll({
       attributes: ['id', 'description'],
       include: [
@@ -46,11 +47,12 @@ class DeliveryProblemController {
           ],
         },
       ],
+      order: [['created_at', 'ASC']],
+      limit: 5,
+      offset: (page - 1) * 5,
     });
 
     return response.json(deliveries);
-
-    // rota para listar todas as entregas com algum problema.
   }
 
   async store(request, response) {

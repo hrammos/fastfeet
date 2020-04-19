@@ -47,7 +47,6 @@ export default function AvatarInput() {
             <p>Adicionar foto</p>
           </div>
         )}
-
         <input
           type="file"
           name="avatar"

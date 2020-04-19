@@ -8,13 +8,15 @@ import api from '~/services/api';
 import history from '~/services/history';
 
 import Actions from '~/components/Actions';
+import Pagination from '~/components/Pagination';
+
 import { Container, Search, RecordTable } from './styles';
 
 export default function Deliveryman() {
   const [deliverymans, setDeliverymans] = useState([]);
   const [name, setName] = useState('');
-  // const [page, setPage] = useState(1);
-  // const [totalPage, setTotalPage] = useState(0);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPage] = useState(0);
 
   function handleNavigateToEdition(id) {
     history.push({ pathname: `/deliverymans/edit/${id}`, state: { id } });
@@ -36,24 +38,24 @@ export default function Deliveryman() {
 
   useEffect(() => {
     async function loadDeliverymans() {
-      const response = await api.get(`/deliverymans?name=${name}`);
+      const response = await api.get(`/deliverymans?name=${name}&page=${page}`);
 
       const data = response.data.map((deliveryman) => ({
         ...deliveryman,
       }));
 
-      // const pageLimit = Math.ceil(response.headers['x-total-count'] / 5);
+      const pageLimit = Math.ceil(response.headers['x-total-count'] / 5);
 
-      // setTotalPage(pageLimit);
+      setTotalPage(pageLimit);
       setDeliverymans(data);
     }
 
     loadDeliverymans();
-  }, [name]);
+  }, [page, name]);
 
-  // function paginate(_, newPage) {
-  //   setPage(newPage);
-  // }
+  function handlePaginate(_, newPage) {
+    setPage(newPage);
+  }
 
   return (
     <Container>
@@ -127,6 +129,7 @@ export default function Deliveryman() {
           ))}
         </tbody>
       </RecordTable>
+      <Pagination count={totalPages} page={page} onChange={handlePaginate} />
     </Container>
   );
 }

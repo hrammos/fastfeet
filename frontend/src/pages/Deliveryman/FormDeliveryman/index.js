@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import * as Yup from 'yup';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MdChevronLeft, MdCheck } from 'react-icons/md';
@@ -23,7 +24,24 @@ export default function FormDeliveryman({ isUpdate }) {
     history.goBack();
   }
 
-  async function handleSubmit(data) {}
+  async function handleSubmit(data) {
+    const { name, email, avatar_id } = data;
+    if (!isUpdate) {
+      await api.post(`deliverymans`, {
+        name,
+        email,
+        avatar_id,
+      });
+      history.push('/deliverymans');
+    }
+
+    await api.put(`deliverymans/${id}`, {
+      name,
+      email,
+      avatar_id,
+    });
+    history.push('/deliverymans');
+  }
 
   const [initialData, setInitialData] = useState();
   useEffect(() => {
@@ -44,9 +62,17 @@ export default function FormDeliveryman({ isUpdate }) {
     loadDeliveryman();
   }, [id, isUpdate]);
 
+  const schema = Yup.object().shape({
+    name: Yup.string().required('O nome é obrigatório'),
+    email: Yup.string()
+      .email('Insira um e-mail válido')
+      .required('O e-mail é obrigatório'),
+    avatar_id: Yup.string().required('O avatar é obrigatório'),
+  });
+
   return (
     <Container>
-      <Form initialData={initialData} onSubmit={handleSubmit}>
+      <Form schema={schema} initialData={initialData} onSubmit={handleSubmit}>
         <header>
           {isUpdate ? (
             <h1>Edição de entregadores</h1>

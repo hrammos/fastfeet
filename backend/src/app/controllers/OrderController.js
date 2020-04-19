@@ -11,7 +11,7 @@ class OrderController {
   async index(request, response) {
     const { product, page = 1 } = request.query;
 
-    const count = await Order.count();
+    const { count } = await Order.findAndCountAll();
 
     const orders = await Order.findAll({
       where: {

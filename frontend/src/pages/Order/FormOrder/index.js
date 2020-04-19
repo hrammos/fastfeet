@@ -44,14 +44,14 @@ export default function FormOrder({ isUpdate }) {
     loadPackages();
   }, [id, isUpdate]);
 
+  const schema = Yup.object().shape({
+    product: Yup.string().required('Informe o produto'),
+    recipient_id: Yup.string().required('O destinatário é obrigatório.'),
+    deliveryman_id: Yup.string().required('O entregador é obrigatório.'),
+  });
+
   async function handleSubmit(data) {
     try {
-      const schema = Yup.object().shape({
-        product: Yup.string().required('Informe o produto'),
-        recipient_id: Yup.number().required('O destinatário é obrigatório.'),
-        deliveryman_id: Yup.number().required('O entregador é obrigatório.'),
-      });
-
       await schema.validate(data, {
         abortEarly: false,
       });
@@ -84,7 +84,7 @@ export default function FormOrder({ isUpdate }) {
 
   return (
     <Container>
-      <Form initialData={initialData} onSubmit={handleSubmit}>
+      <Form schema={schema} initialData={initialData} onSubmit={handleSubmit}>
         <header>
           {isUpdate ? (
             <h1> Edição de encomendas </h1>
@@ -105,11 +105,11 @@ export default function FormOrder({ isUpdate }) {
         <Card>
           <SelectContainer>
             <div>
-              <label forName="recipient_id">Destinatário</label>
+              <label htmlFor="recipient_id">Destinatário</label>
               <Input
                 id="recipient_id"
                 name="recipient_id"
-                type="number"
+                type="text"
                 placeholder="Ludmila Beethoven"
               />
             </div>
@@ -119,7 +119,7 @@ export default function FormOrder({ isUpdate }) {
               <Input
                 id="deliveryman_id"
                 name="deliveryman_id"
-                type="number"
+                type="text"
                 placeholder="Jhoe Doe"
               />
             </div>

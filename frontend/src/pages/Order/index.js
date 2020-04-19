@@ -12,7 +12,7 @@ import {
 } from 'react-icons/md';
 
 import Actions from '~/components/Actions';
-// import Pagination from '~/components/Pagination';
+import Pagination from '~/components/Pagination';
 
 import api from '~/services/api';
 import history from '~/services/history';
@@ -20,8 +20,8 @@ import history from '~/services/history';
 import { Container, Search, RecordTable } from './styles';
 
 export default function Order() {
-  // const [page, setPage] = useState(1);
-  // const [totalPages, setTotalPage] = useState(0);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPage] = useState(0);
   const [orders, setOrders] = useState([]);
   const [product, setProduct] = useState('');
 
@@ -43,24 +43,24 @@ export default function Order() {
 
   useEffect(() => {
     async function loadOrders() {
-      const response = await api.get(`/orders?product=${product}`);
+      const response = await api.get(`/orders?product=${product}&page=${page}`);
 
       const data = response.data.map((order) => ({
         ...order,
       }));
 
-      // const pageLimit = Math.ceil(response.headers['x-total-count'] / 5);
+      const pageLimit = Math.ceil(response.headers['X-total-count'] / 5);
 
-      // setTotalPage(pageLimit);
+      setTotalPage(pageLimit);
       setOrders(data);
     }
 
     loadOrders();
-  }, [product]);
+  }, [product, page]);
 
-  // function paginate(_, newPage) {
-  //   setPage(newPage);
-  // }
+  function handlePaginate(_, newPage) {
+    setPage(newPage);
+  }
 
   return (
     <Container>
@@ -81,7 +81,6 @@ export default function Order() {
           </Link>
         </div>
       </header>
-
       <RecordTable>
         <thead>
           <tr>
@@ -127,13 +126,7 @@ export default function Order() {
           ))}
         </tbody>
       </RecordTable>
-      {/* <Pagination
-        count={totalPages}
-        page={page}
-        onChange={paginate}
-        variant="outlined"
-        shape="rounded"
-      /> */}
+      <Pagination count={totalPages} page={page} onChange={handlePaginate} />
     </Container>
   );
 }

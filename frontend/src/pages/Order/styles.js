@@ -150,7 +150,6 @@ export const ActionsList = styled.aside`
 export const ActionButton = styled.div`
   button {
     margin-top: 0;
-
     border: 1px solid red;
     width: 150px;
   }
