@@ -1,16 +1,7 @@
-// import * as Yup from 'yup';
 import Order from '../models/Order';
 
 class FinishDeliveryController {
   async update(request, response) {
-    // const schema = Yup.object().shape({
-
-    // });
-
-    // if (!(await schema.isValid(request.body))) {
-    //   return response.status(400).json({ error: 'Validation fails.' });
-    // }
-
     const { id } = request.params;
 
     const delivery = await Order.findByPk(id);
@@ -22,17 +13,17 @@ class FinishDeliveryController {
     if (!delivery.start_date) {
       return response
         .status(400)
-        .json({ error: 'Encomenda ainda não saiu para entrega' });
+        .json({ error: 'Order has not yet been withdrawn.' });
     }
 
     if (delivery.canceled_at) {
-      return response.status(400).json({ error: 'Entrega canceladas' });
+      return response.status(400).json({ error: 'Order canceled.' });
     }
 
     if (delivery.end_date) {
       return response
         .status(400)
-        .json({ error: 'Encomenda já foi finalizada' });
+        .json({ error: 'Order has already been finalized.' });
     }
 
     await delivery.update({

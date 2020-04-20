@@ -154,3 +154,18 @@ export const ActionButton = styled.div`
     width: 150px;
   }
 `;
+
+export const ModalContainer = styled.div`
+  h3 {
+    margin-bottom: 10px;
+  }
+
+  hr {
+    margin: 5px 0 10px 0;
+  }
+
+  img {
+    max-width: 115px;
+    max-height: 115px;
+  }
+`;

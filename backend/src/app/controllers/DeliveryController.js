@@ -9,7 +9,7 @@ class DeliveryController {
 
     const count = await Order.count();
 
-    const orders = await Order.findAll({
+    const orders = await Order.findAndCountAll({
       where: {
         deliveryman_id,
         canceled_at: null,
@@ -53,12 +53,10 @@ class DeliveryController {
 
     const deliveries = await Order.findAndCountAll({
       where: {
-        // deliveryman_id: delivery.deliveryman_id,
+        deliveryman_id: delivery.deliveryman_id,
         start_date: { [Op.between]: [startTime, finalHour] },
       },
     });
-
-    // console.log(deliveries); // testar isso ainda
 
     if (deliveries.count >= 5) {
       return response

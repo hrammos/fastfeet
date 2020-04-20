@@ -8,8 +8,8 @@ import Order from '../pages/Order';
 import FormOrder from '../pages/Order/FormOrder';
 import Deliveryman from '../pages/Deliveryman';
 import FormDeliveryman from '../pages/Deliveryman/FormDeliveryman';
-
 import Recipient from '../pages/Recipient';
+import FormRecipient from '../pages/Recipient/FormRecipient';
 import Problem from '../pages/Problem';
 
 export default function Routes() {
@@ -40,7 +40,15 @@ export default function Routes() {
         isPrivate
         isUpdate
       />
-      <Route path="/recipients" component={Recipient} isPrivate />
+      <Route path="/recipients" exact component={Recipient} isPrivate />
+      <Route path="/recipients/new" exact component={FormRecipient} isPrivate />
+      <Route
+        path="/recipients/edit/:id"
+        exact
+        component={FormRecipient}
+        isPrivate
+        isUpdate
+      />
       <Route path="/problems" component={Problem} isPrivate />
     </Switch>
   );

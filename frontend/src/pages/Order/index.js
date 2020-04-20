@@ -2,6 +2,8 @@
 /* eslint-disable no-restricted-globals */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { format, parseISO } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 
 import {
   MdAdd,
@@ -13,11 +15,12 @@ import {
 
 import Actions from '~/components/Actions';
 import Pagination from '~/components/Pagination';
+import Modal from '~/components/Modal';
 
 import api from '~/services/api';
 import history from '~/services/history';
 
-import { Container, Search, RecordTable } from './styles';
+import { Container, Search, RecordTable, ModalContainer } from './styles';
 
 export default function Order() {
   const [page, setPage] = useState(1);
@@ -47,6 +50,25 @@ export default function Order() {
 
       const data = response.data.map((order) => ({
         ...order,
+        dates: {
+          start: order.start_date
+            ? format(parseISO(order.start_date), 'dd/MM/yyyy', {
+                locale: pt,
+              })
+            : null,
+          end: order.end_date
+            ? format(parseISO(order.end_date), 'dd/MM/yyyy', {
+                locale: pt,
+              })
+            : null,
+        },
+        status: order.end_date
+          ? 'Entregue'
+          : order.canceled_at
+          ? 'Cancelado'
+          : order.start_date
+          ? 'Retirada'
+          : 'Pendente',
       }));
 
       const pageLimit = Math.ceil(response.headers['X-total-count'] / 5);
@@ -102,13 +124,39 @@ export default function Order() {
               <td>{order.deliveryman.name}</td>
               <td>{order.recipient.city}</td>
               <td>{order.recipient.state}</td>
-              <td>PENDENTE</td>
+              <td>{order.status}</td>
               <td>
                 <Actions>
-                  <button type="button">
-                    <MdRemoveRedEye size={14} color="#8E5BE8" />
-                    Visualizar
-                  </button>
+                  <Modal>
+                    <ModalContainer>
+                      <h3>Informações da encomenda</h3>
+                      <p>
+                        Rua {order.recipient.street}, {order.recipient.number}
+                      </p>
+                      <p>
+                        {order.recipient.city} - {order.recipient.state}
+                      </p>
+                      <p>{order.recipient.cep}</p>
+                      <hr />
+
+                      <h3>Datas</h3>
+                      <p>
+                        <strong>Data de retirada:</strong>
+                        {order.dates.start}
+                      </p>
+                      <p>
+                        <strong>Data de entrega:</strong>
+                        {order.dates.end}
+                      </p>
+                      <hr />
+                      <h3>Assinatura do usuário</h3>
+                      {order.signature ? (
+                        <img src={order.signature.url} alt="Assinatura" />
+                      ) : (
+                        ''
+                      )}
+                    </ModalContainer>
+                  </Modal>
                   <button
                     type="button"
                     onClick={() => handleNavigateToEdition(order.id)}

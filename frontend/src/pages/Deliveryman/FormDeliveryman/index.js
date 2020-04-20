@@ -92,7 +92,7 @@ export default function FormDeliveryman({ isUpdate }) {
           </Buttons>
         </header>
         <Card>
-          <AvatarInput disabled />
+          <AvatarInput />
 
           <Input
             id="name"

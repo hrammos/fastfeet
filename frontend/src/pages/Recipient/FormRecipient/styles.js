@@ -41,14 +41,13 @@ export const Buttons = styled.div`
 `;
 
 export const Card = styled.div`
+  padding: 30px;
   background: #fff;
   width: 100%;
-  min-height: 224px;
-  /* height: 100%; */
+  height: 300px;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
-  padding: 0 30px;
 
   label {
     align-self: flex-start;
@@ -61,10 +60,9 @@ export const Card = styled.div`
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 4px;
-    height: 45px;
+    height: 45px !important;
     padding: 0 15px;
     letter-spacing: 0px;
-    margin-top: -4px;
 
     &::placeholder {
       color: #666;
@@ -76,19 +74,104 @@ export const Card = styled.div`
     color: #de3b3b;
     align-self: flex-start;
     font-weight: bold;
-    margin: 8px;
+    margin: 0 0 10px;
   }
 `;
 
-export const SelectContainer = styled.div`
+export const FirstContainer = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+
+  div {
+    width: 520px;
+
+    label {
+      align-self: flex-start;
+      color: #444;
+      font-weight: bold;
+      margin-bottom: 9px;
+    }
+
+    input {
+      width: 100%;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      height: 45px;
+      padding: 0 15px;
+      letter-spacing: 0px;
+      margin: 8px 0 15px;
+
+      &::placeholder {
+        color: #666;
+        opacity: 0.7;
+      }
+    }
+
+    span {
+      color: #de3b3b;
+      align-self: flex-start;
+      font-weight: bold;
+      margin: 0 0 10px;
+    }
+  }
+`;
+export const SecondContainer = styled.div`
+  padding-left: 30px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 30px 0 8px;
 
   div {
-    width: 350px;
+    width: 180px;
+
+    label {
+      align-self: flex-start;
+      color: #444;
+      font-weight: bold;
+      margin-bottom: 9px;
+    }
+
+    input {
+      width: 100%;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      height: 45px;
+      padding: 0 15px;
+      letter-spacing: 0px;
+      margin: 8px 0 15px;
+
+      &::placeholder {
+        color: #666;
+        opacity: 0.7;
+      }
+    }
+
+    span {
+      color: #de3b3b;
+      align-self: flex-start;
+      font-weight: bold;
+      margin: 0 0 10px;
+    }
+  }
+`;
+
+export const ThirdContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  margin-top: 30px;
+
+  div {
+    width: 260px;
 
     label {
       align-self: flex-start;

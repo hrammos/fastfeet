@@ -27,8 +27,14 @@ class OrderController {
         'canceled_at',
         'start_date',
         'end_date',
+        'signature_id',
       ],
       include: [
+        {
+          model: File,
+          as: 'signature',
+          attributes: ['name', 'path', 'url'],
+        },
         {
           model: Recipient,
           as: 'recipient',
@@ -115,6 +121,10 @@ class OrderController {
       ],
     });
 
+    if (!order) {
+      return response.status(400).json({ error: 'Order not exists.' });
+    }
+
     return response.json(order);
   }
 
@@ -132,6 +142,10 @@ class OrderController {
     const { id } = request.params;
     const order = await Order.findByPk(id);
 
+    if (!order) {
+      return response.status(400).json({ error: 'Order not exists.' });
+    }
+
     order.update(request.body);
 
     return response.json(order);
@@ -140,6 +154,10 @@ class OrderController {
   async destroy(request, response) {
     const { id } = request.params;
     const order = await Order.findByPk(id);
+
+    if (!order) {
+      return response.status(400).json({ error: 'Order not exists.' });
+    }
 
     order.destroy();
 

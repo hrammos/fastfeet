@@ -110,7 +110,7 @@ export default function FormOrder({ isUpdate }) {
                 id="recipient_id"
                 name="recipient_id"
                 type="text"
-                placeholder="Ludmila Beethoven"
+                placeholder="Informe o id do destinatário."
               />
             </div>
 
@@ -120,7 +120,7 @@ export default function FormOrder({ isUpdate }) {
                 id="deliveryman_id"
                 name="deliveryman_id"
                 type="text"
-                placeholder="Jhoe Doe"
+                placeholder="Informe o id do entregador."
               />
             </div>
           </SelectContainer>
